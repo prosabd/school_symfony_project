@@ -1,0 +1,135 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+	Voiture
+{% endblock %}
+{% block monTitre %}
+	Page liste Voitures
+{% endblock %}
+{% block body %}
+	<h1>Voici la liste des Voitures
+		{% if admin %}
+			<a class="btn btn-success" href="{{ path('app_admin_new')}}">Ajouter</a>
+		{% endif %}
+	</h1>
+	{# <ul> #}
+	<a href="{{ path('app_voiture') }}" class="btn btn-primary mb-2">Tous</a>
+	{# <a href="{{ path('app_alimentsParCalorie', {'calorie': 50}) }}" class="btn btn-primary mb-2">aliments avec moins de 50 calories au 100gr</a>
+	<a href="{{ path('app_alimentsParGlucide', {'glucide': 5}) }}" class="btn btn-primary mb-2">aliments avec moins de 5 glucides au 100gr</a> #}
+	{# <div class="count">
+    {{ pagination.getTotalItemCount }}
+    </div> #}
+    <div>
+        {{ form_start(form) }}
+			<div class="col-6">
+				{{ form_widget(form.anneeMin, {'attr' : {'class' : 'col-6 mb-2 '}}) }}
+				{{ form_widget(form.anneeMax, {'attr' : {'class' : 'col-6 mb-2'}}) }}
+				{{ form_widget(form.rechercher, {'attr' : {'class' : 'btn btn-primary mb-2'}}) }}
+				{# <a href="{{ search }}" class="btn btn-primary mb-2">Tous</a> #}
+			</div>
+        {{ form_end(form) }}
+		
+		{% if form.anneeMin.vars.value is empty and form.anneeMax.vars.value is empty %}
+			{{ search is empty }}
+		{% else %}
+			{{ search is not empty }}
+		{% endif %}
+		{# {% dump(search) %} #}
+    </div>
+
+    <div class="row">
+		{# {% for voiture in voitures %} #}
+            {% if search is not empty %}
+                <div class="alert alert-success">
+                    <p>La recherche a donné {{ search.getTotalItemCount }} résultat(s)</p>
+                </div>
+					{% for voiture in search %}
+					
+					<div class="col-12 col-md-6 col-lg-4 col-xl-3">
+						<div class="border border-primary mb-3 mx-auto" style="max-width:20rem">
+							<div class="card-header text-center">
+								<img src="{{asset('images/'~ voiture.modele.image ) }}" class="perso_imgVoiture card-img-top">
+
+								<div class="card-body">
+									<h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{ voiture.immatriculation }}</h3>
+									<p class="card-text">
+										<h4 class="text-center">Marque:
+											{{ voiture.modele.marque.libelle }}</h4>
+
+										<table class="table text-center">
+											<tr class="table-primary">
+												<td>Modele:</td>
+												<td>{{ voiture.modele.libelle }}</td>
+											</tr>
+											<tr>
+												<td>Nombre de porte:</td>
+												<td>{{ voiture.nombreportes }}</td>
+											</tr>
+											<tr>
+												<td>Annee:</td>
+												<td>{{ voiture.annee }}</td>
+											</tr>
+											{% if admin %}
+											<tr>
+												<a class="btn btn-secondary mr-2" href="{{ path('app_admin_edit', {'id': voiture.id})}}">Modifier</a>
+												{# <a class="btn btn-danger" href="{{ path('app_admin_delete', {'id': voiture.id}) }}">Supprimer</a> #}
+												<div class="btn btn-danger">
+													{{ include('admin/_delete_form.html.twig') }}
+												</div>
+
+											</tr>
+											{% endif %}
+										</table>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				{# {% endfor %} #}
+				<div class="navigation btn btn-primary mr-2">
+					{{ knp_pagination_render(search) }}
+				</div>
+            {% else %}
+                <div class="alert alert-success">
+                    <p>La recherche a donné {{ pagination.getTotalItemCount }} résultat(s)</p>
+                </div>
+					{% for voiture in pagination %}
+					
+					<div class="col-12 col-md-6 col-lg-4 col-xl-3">
+						<div class="border border-primary mb-3 mx-auto" style="max-width:20rem">
+							<div class="card-header text-center">
+								<img src="{{asset('images/'~ voiture.modele.image ) }}" class="perso_imgVoiture card-img-top">
+
+								<div class="card-body">
+									<h3 class="card-title text-center pb-2 mx-3 border-bottom border-primary">{{ voiture.immatriculation }}</h3>
+									<p class="card-text">
+										<h4 class="text-center">Marque:
+											{{ voiture.modele.marque.libelle }}</h4>
+
+										<table class="table text-center">
+											<tr class="table-primary">
+												<td>Modele:</td>
+												<td>{{ voiture.modele.libelle }}</td>
+											</tr>
+											<tr>
+												<td>Nombre de porte:</td>
+												<td>{{ voiture.nombreportes }}</td>
+											</tr>
+											<tr>
+												<td>Annee:</td>
+												<td>{{ voiture.annee }}</td>
+											</tr>
+										</table>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				{# {% endfor %} #}
+				<div class="navigation btn btn-primary mr-2">
+					{{ knp_pagination_render(pagination) }}
+				</div>
+            {% endif %}
+	</div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{# {% block title %}Edit Voiture{% endblock %} #}
+{% block title %}Modification{% endblock %}
+{% block monTitre %} Modification {{ voiture.immatriculation}} {% endblock %}
+
+{% block body %}
+    {# <h1>Edit Voiture</h1> #}
+
+    {{ include('admin/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_admin_index') }}" class="btn btn-secondary mb-2">back to list</a></br>
+
+    <div class="btn btn-danger">
+        {{ include('admin/_delete_form.html.twig') }}
+    </div>        
+{% endblock %}

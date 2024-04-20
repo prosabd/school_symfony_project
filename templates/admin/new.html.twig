@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Voiture{% endblock %}
+
+{% block body %}
+    <h1>Create new Voiture</h1>
+    {% if showSpan %}
+    <div class="alert alert-success">
+        <span>NOUVELLE VOITURE AJOUTEE</span>
+    </div>
+    {% endif %}
+
+    {{ include('admin/_form.html.twig') }}
+
+    <a href="{{ path('app_admin_index') }}" class="btn btn-secondary mb-2">back to list</a>
+{% endblock %}
