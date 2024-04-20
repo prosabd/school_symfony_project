@@ -2,4 +2,4 @@
 
 Ce projet avait pour but de prendre en main le CRUD et le framework Symfony. Voir des voitures presentes dans la base de donnees, en ajouter/supprimer/editer via le panel Admin
 
-##```symfony server:start```
+## `symfony server:start`
