@@ -11,7 +11,7 @@ Ce projet avait pour but de prendre en main le CRUD et le framework Symfony. Voi
 # Lancement du projet
 
 Lancez le logiciel Wamp64, puis faites les commandes symfony de debut de projet: de creations de base données, de migrations, ...
-(ou bien importez le ficher voiture.sql présent dans le projet)
+(ou bien importez le ficher voiture.sql présent dans le projet dans phpmyadmin)
 
 ### Lancez la commande : 
 
